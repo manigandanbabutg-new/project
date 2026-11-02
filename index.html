@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Happy Bot</title>
+
+    <style>
+
+        body {
+            background: lightblue;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .chat {
+            background: white;
+            width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .bot {
+            background: lightblue;
+            padding: 12px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .user {
+            background: lightgreen;
+            padding: 12px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        input {
+            padding: 12px;
+            width: 65%;
+        }
+
+        button {
+            padding: 12px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #video {
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="chat">
+
+        <h2>😊 Happy Bot</h2>
+
+        <p>Let's talk about your day!</p>
+
+        <div id="messages"></div>
+
+        <input
+            type="text"
+            id="answer"
+            placeholder="Type your answer"
+            onkeydown="checkEnter(event)"
+        >
+
+        <button onclick="sendAnswer()">Send</button>
+
+        <div id="video">
+
+            <h3>🎬 Recommended Video</h3>
+
+            <p>Keep smiling and stay happy!</p>
+
+            <iframe
+                width="300"
+                height="170"
+                src="https://youtu.be/FjHGZj2IjBk?si=X_69iINXVULUilLD"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Store all questions
+
+        var questions = [
+
+            "How do you feel today?",
+
+            "What made you feel this way?",
+
+            "What is your favourite activity?",
+
+            "What would you like to do tomorrow?"
+
+        ];
+
+
+        // Track the question number
+
+        var count = 0;
+
+
+        // Display a chat message
+
+        function addMessage(message, type) {
+
+            var chat = document.getElementById("messages");
+
+            var box = document.createElement("div");
+
+            box.className = type;
+
+            box.innerHTML = message;
+
+            chat.appendChild(box);
+
+        }
+
+
+        // Display the first question
+
+        addMessage(questions[count], "bot");
+
+
+        // Check whether Enter is pressed
+
+        function checkEnter(event) {
+
+            if (event.key == "Enter") {
+
+                sendAnswer();
+
+            }
+
+        }
+
+
+        // Send the user's answer
+
+        function sendAnswer() {
+
+            var input = document.getElementById("answer");
+
+            var reply = input.value.trim();
+
+
+            // Check empty input
+
+            if (reply == "") {
+
+                alert("Please type your answer!");
+
+                return;
+
+            }
+
+
+            // Display user's answer
+
+            addMessage(reply, "user");
+
+
+            // Clear the input box
+
+            input.value = "";
+
+
+            // Move to next question
+
+            count = count + 1;
+
+
+            // Check remaining questions
+
+            if (count < 4) {
+
+                addMessage(questions[count], "bot");
+
+            }
+
+            else {
+
+                addMessage(
+                    "Thank you for chatting with me! Keep smiling! 😊",
+                    "bot"
+                );
+
+
+                // Display recommended video
+
+                document.getElementById("video").style.display = "block";
+
+
+                // Hide input and button
+
+                input.style.display = "none";
+
+                document.querySelector("button").style.display = "none";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
